@@ -21,11 +21,12 @@ public:
 		: m_maxCount(maxCount) {
 	}
 
-	void put(T&& e) {
+	template <typename E, typename enable_if = typename std::enable_if_t<std::is_constructible_v<T, E>>>
+	void put(E&& e) {
 		std::unique_lock<std::mutex> l(m_lock);
 		m_notFull.wait(l, [&]() { return m_items.size() != m_maxCount; });
 
-		m_items.push(std::forward<T>(e));
+		m_items.push(std::forward<E>(e));
 		m_notEmpty.notify_one();
 	}
 
