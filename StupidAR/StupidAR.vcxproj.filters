@@ -21,6 +21,9 @@
     <ClInclude Include="StupidAudioRenderer.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="BlockingQueue.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
