@@ -157,7 +157,7 @@
       <ConformanceMode>false</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)baseclasses;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)baseclasses;$(SolutionDir)asiosdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -181,6 +181,9 @@
     <ClCompile Include="StupidAudioRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\asiosdk\asiosdk.vcxproj">
+      <Project>{c42ef5ab-57f7-4463-bc2e-235938ffa739}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\baseclasses\baseclasses.vcxproj">
       <Project>{e8a3f6fa-ae1c-4c8e-a0b6-9c8480324eaa}</Project>
     </ProjectReference>
