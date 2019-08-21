@@ -7,18 +7,15 @@
 /// Fixed-size, blocking queue with support for flushing
 template <typename T>
 class BlockingQueue {
-
 private:
-
     bool m_flushing;
     size_t m_size;
     std::deque<T> m_items;
     std::mutex m_lock;
-    std::condition_variable m_notFull;
-    std::condition_variable m_notEmpty;
+    std::condition_variable m_not_full;
+    std::condition_variable m_not_empty;
 
 public:
-
     explicit BlockingQueue(size_t size)
         : m_size(size), m_flushing(false) {
     }
@@ -28,14 +25,14 @@ public:
     template <typename E, typename enable_if = typename std::enable_if_t<std::is_constructible_v<T, E>>>
     bool put(E&& e) {
         std::unique_lock<std::mutex> l(m_lock);
-        m_notFull.wait(l, [&]() { return m_items.size() != m_size || m_flushing; });
+        m_not_full.wait(l, [&]() { return m_items.size() != m_size || m_flushing; });
 
         if (m_flushing) {
             return false;
         }
 
         m_items.push_back(std::forward<E>(e));
-        m_notEmpty.notify_one();
+        m_not_empty.notify_one();
 
         return true;
     }
@@ -51,7 +48,7 @@ public:
         }
 
         m_items.push_back(std::forward<E>(e));
-        m_notEmpty.notify_one();
+        m_not_empty.notify_one();
 
         return true;
     }
@@ -60,7 +57,7 @@ public:
     /// Returns `true` if `out` was succesfully initialized from the front of the queue
     bool take(T& out) {
         std::unique_lock<std::mutex> l(m_lock);
-        m_notEmpty.wait(l, [&]() { return m_items.size() != 0 || m_flushing; });
+        m_not_empty.wait(l, [&]() { return m_items.size() != 0 || m_flushing; });
 
         if (m_flushing) {
             return false;
@@ -68,7 +65,7 @@ public:
 
         out = std::move(m_items.front());
         m_items.pop_front();
-        m_notFull.notify_one();
+        m_not_full.notify_one();
 
         return true;
     }
@@ -81,7 +78,7 @@ public:
         if (!m_items.empty()) {
             out = std::move(m_items.front());
             m_items.pop_front();
-            m_notFull.notify_one();
+            m_not_full.notify_one();
 
             return true;
         }
@@ -102,8 +99,8 @@ public:
         m_flushing = true;
         m_items.clear();
 
-        m_notFull.notify_all();
-        m_notEmpty.notify_all();
+        m_not_full.notify_all();
+        m_not_empty.notify_all();
     }
 
     /// Opens the queue
@@ -111,5 +108,4 @@ public:
         std::unique_lock<std::mutex> l(m_lock);
         m_flushing = false;
     }
-
 };
