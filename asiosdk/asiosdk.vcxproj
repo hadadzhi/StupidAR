@@ -145,10 +145,8 @@
     <ClInclude Include="asiodrvr.h" />
     <ClInclude Include="asiolist.h" />
     <ClInclude Include="asiosys.h" />
-    <ClInclude Include="combase.h" />
     <ClInclude Include="ginclude.h" />
     <ClInclude Include="iasiodrv.h" />
-    <ClInclude Include="wxdebug.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
