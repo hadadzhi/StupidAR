@@ -3,11 +3,13 @@
   <ItemGroup>
     <ClInclude Include="BlockingQueue.h" />
     <ClInclude Include="common.h" />
-    <ClInclude Include="StupidAudioRenderer.h" />
+    <ClInclude Include="IOutputAgent.h" />
+    <ClInclude Include="MyRenderer.h" />
+    <ClInclude Include="pcm.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="StupidAudioRenderer.cpp" />
+    <ClCompile Include="MyRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="dllmain.def" />
