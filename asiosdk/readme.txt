@@ -1,0 +1,1 @@
+Just download your own copy of ASIO SDk and put all sources and headers right here.
