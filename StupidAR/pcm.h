@@ -22,8 +22,8 @@ namespace StupidAR {
         static const int32_t max_i32 = INT32_MAX >> 8;
         static const int32_t min_i32 = INT32_MIN >> 8;
 
-        int32_t int_value() {
-            int32_t v = *reinterpret_cast<int8_t*>(&data[2]);
+        int32_t int_value() const {
+            int32_t v = *reinterpret_cast<const int8_t*>(&data[2]);
             v <<= 16;
             v |= static_cast<uint16_t>(data[1]) << 8;
             v |= data[0];
@@ -96,7 +96,7 @@ namespace StupidAR {
 
     template <>
     pcm24_t convert_pcm<PcmFormat::Float, PcmFormat::S24LE>(float sample) {
-        return pcm24_t::value_of(sample * (pcm24_t::max_i32 + 1.0f));
+        return pcm24_t::value_of(static_cast<int32_t>(sample * (pcm24_t::max_i32 + 1.0f)));
     }
 
     template <>
@@ -106,7 +106,7 @@ namespace StupidAR {
 
     template <>
     int32_t convert_pcm<PcmFormat::Double, PcmFormat::S32LE>(double sample) {
-        return sample * (INT32_MAX + 1.0);
+        return static_cast<int32_t>(sample * (INT32_MAX + 1.0));
     }
 
     // U8LE -> ... conversions:
@@ -133,7 +133,7 @@ namespace StupidAR {
 
     template <>
     int32_t convert_pcm<PcmFormat::U8LE, PcmFormat::S32LE>(uint8_t sample) {
-        return static_cast<int32_t>(sample) - 128 << 24;
+        return (static_cast<int32_t>(sample) - 128) << 24;
     }
 
     template <>
