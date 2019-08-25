@@ -6,11 +6,12 @@
 
 namespace {
     const AMOVIESETUP_MEDIATYPE kSetupMediaTypes[] = {
-    { &MEDIATYPE_Audio, &CLSID_NULL },
+        { &MEDIATYPE_Audio, &MEDIASUBTYPE_PCM },
+        { &MEDIATYPE_Audio, &MEDIASUBTYPE_IEEE_FLOAT },
     };
 
     const AMOVIESETUP_PIN kSetupPins[] = {
-        { L"", TRUE, FALSE, FALSE, FALSE, &CLSID_NULL, nullptr, _countof(kSetupMediaTypes), kSetupMediaTypes }
+        { L"", TRUE, FALSE, FALSE, FALSE, &CLSID_NULL, nullptr, _countof(kSetupMediaTypes), kSetupMediaTypes },
     };
 
     const AMOVIESETUP_FILTER kSetupFilter = { &StupidAR::kMyFilterGuid, StupidAR::kMyFilterName, MERIT_DO_NOT_USE, _countof(kSetupPins), kSetupPins };

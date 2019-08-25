@@ -25,7 +25,7 @@ namespace StupidAR {
         virtual int32_t output_channels() = 0;
 
         // The expected format for the PCM data
-        virtual PcmFormat pcm_format() = 0;
+        virtual SampleFormat pcm_format() = 0;
 
         // The agent will start requesting PCM data after this method returns.
         virtual void start() = 0;
